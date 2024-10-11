@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('E-commerce App', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255),fontWeight: FontWeight.bold, fontSize: 32.sp),),
+              Text('E-Commerce App', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255),fontWeight: FontWeight.bold, fontSize: 32.sp),),
               SizedBox(height: 16.sp),
               Text('Loading...', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255), fontSize: 18.sp),),
               SizedBox(height: 20.sp),
