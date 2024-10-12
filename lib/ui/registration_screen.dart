@@ -224,16 +224,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             onPressed: () {
                               signUp();
                             },
-                            child: Text(
-                              "Continue",
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 18.sp),
-                            ),
                             style: ElevatedButton.styleFrom(
                               // Replaced 'primary' with 'backgroundColor'
                               backgroundColor: AppColors.deep_orange,
                               elevation: 3,
                             ),
+                            child: Text(
+                              "Continue",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 18.sp),
+                            ),
+                            
                           ),
                         ),
                         SizedBox(
