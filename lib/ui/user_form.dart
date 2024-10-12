@@ -10,16 +10,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 class UserForm extends StatefulWidget {
+  const UserForm({super.key});
+
   @override
   _UserFormState createState() => _UserFormState();
 }
 
 class _UserFormState extends State<UserForm> {
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _dobController = TextEditingController();
-  TextEditingController _genderController = TextEditingController();
-  TextEditingController _ageController = TextEditingController();
+  final _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _dobController = TextEditingController();
+  final TextEditingController _genderController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
   List<String> gender = ["Male", "Female", "Other"];
 
   Future<void> _selectDateFromPicker(BuildContext context) async {
@@ -29,10 +31,11 @@ class _UserFormState extends State<UserForm> {
       firstDate: DateTime(DateTime.now().year - 30),
       lastDate: DateTime(DateTime.now().year),
     );
-    if (picked != null)
+    if (picked != null) {
       setState(() {
         _dobController.text = "${picked.day}/ ${picked.month}/ ${picked.year}";
       });
+    }
   }
 
   sendUserDataToDB() async {
@@ -52,7 +55,7 @@ class _UserFormState extends State<UserForm> {
         })
         .then((value) => Navigator.push(
             context, MaterialPageRoute(builder: (_) => BottomNavController())))
-        .catchError((error) => print("something is wrong. $error"));
+        .catchError((error) => print("Something is wrong. $error"));
   }
 
   @override
