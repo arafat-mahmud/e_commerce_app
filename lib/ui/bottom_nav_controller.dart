@@ -55,7 +55,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: "Person",
+            label: "Profile",
           ),
         ],
         onTap: (index) {

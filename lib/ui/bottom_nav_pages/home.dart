@@ -133,6 +133,7 @@ class _HomeState extends State<Home> {
             ),
             Expanded(
               child: GridView.builder(
+                  //scrollDirection: Axis.vertical,
                   scrollDirection: Axis.horizontal,
                   itemCount: _products.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
