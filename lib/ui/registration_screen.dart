@@ -9,37 +9,36 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class RegistrationScreen extends StatefulWidget {
+  const RegistrationScreen({super.key});
+
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
+// Registration screen Instance
 class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   bool _obscureText = true;
 
-  signUp()async{
+  signUp() async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _emailController.text,
-          password: _passwordController.text
-      );
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: _emailController.text, password: _passwordController.text);
       var authCredential = userCredential.user;
       print(authCredential!.uid);
-      if(authCredential.uid.isNotEmpty){
-        Navigator.push(context, CupertinoPageRoute(builder: (_)=>UserForm()));
-      }
-      else{
+      if (authCredential.uid.isNotEmpty) {
+        Navigator.push(context, CupertinoPageRoute(builder: (_) => UserForm()));
+      } else {
         Fluttertoast.showToast(msg: "Something is wrong");
       }
-
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Fluttertoast.showToast(msg: "The password provided is too weak.");
-
       } else if (e.code == 'email-already-in-use') {
-        Fluttertoast.showToast(msg: "The account already exists for that email.");
-
+        Fluttertoast.showToast(
+            msg: "The account already exists for that email.");
       }
     } catch (e) {
       print(e);
@@ -135,7 +134,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               child: TextField(
                                 controller: _emailController,
                                 decoration: InputDecoration(
-                                  hintText: "thed9954@gmail.com",
+                                  hintText: "example@gmail.com",
                                   hintStyle: TextStyle(
                                     fontSize: 14.sp,
                                     color: Color(0xFF414041),
@@ -177,7 +176,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 controller: _passwordController,
                                 obscureText: _obscureText,
                                 decoration: InputDecoration(
-                                  hintText: "password must be 6 character",
+                                  hintText: "Password must be 6 character",
                                   hintStyle: TextStyle(
                                     fontSize: 14.sp,
                                     color: Color(0xFF414041),

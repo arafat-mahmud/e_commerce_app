@@ -7,6 +7,7 @@ import 'package:e_commerce_app/ui/bottom_nav_controller.dart';
 import 'package:e_commerce_app/widgets/customButton.dart';
 import 'package:e_commerce_app/widgets/myTextField.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class UserForm extends StatefulWidget {
   @override
@@ -84,43 +85,108 @@ class _UserFormState extends State<UserForm> {
                   height: 15.h,
                 ),
                 myTextField(
-                    "enter your name", TextInputType.text, _nameController),
-                myTextField("enter your phone number", TextInputType.number,
-                    _phoneController),
+                    "Enter your name", TextInputType.text, _nameController),
+
+                // myTextField("Enter your phone number", TextInputType.number,
+                //     _phoneController),
+
+                IntlPhoneField(
+                  decoration: InputDecoration(
+                      // labelText: 'Phone Number',
+                      hintText: 'Enter your phone number',
+                      contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 0)),
+                      
+                  initialCountryCode: 'US',
+                  onChanged: (phone) {
+                    print(phone.completeNumber);
+                  },
+                  controller: _phoneController,
+                  keyboardType: TextInputType.phone,
+                ),
+
                 TextField(
                   controller: _dobController,
                   readOnly: true,
                   decoration: InputDecoration(
-                    hintText: "date of birth",
+                    hintText: "Date of Birth",
                     suffixIcon: IconButton(
                       onPressed: () => _selectDateFromPicker(context),
                       icon: Icon(Icons.calendar_today_outlined),
                     ),
                   ),
                 ),
-                TextField(
-                  controller: _genderController,
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    hintText: "choose your gender",
-                    prefixIcon: DropdownButton<String>(
-                      items: gender.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: new Text(value),
-                          onTap: () {
-                            setState(() {
-                              _genderController.text = value;
-                            });
-                          },
+                // TextField(
+                //   controller: _genderController,
+                //   readOnly: true,
+                //   decoration: InputDecoration(
+                //     hintText: "Gender",
+                //     suffixIcon: DropdownButton<String>(
+                //       icon: Icon(Icons.arrow_drop_down),
+                //       underline: SizedBox(),
+                //       items: gender.map<DropdownMenuItem<String>>((String value) {
+                //         return DropdownMenuItem<String>(
+                //           value: value,
+                //           child: Text(value),
+                //           onTap: () {
+                //             setState(() {
+                //               _genderController.text = value;
+                //             });
+                //           },
+                //         );
+                //       }).toList(),
+                //       onChanged: (String? newValue) {
+                //         _genderController.text = newValue!;
+                //       },
+                //     ),
+                //   ),
+                // ),
+                GestureDetector(
+                  onTap: () async {
+                    String? selectedGender = await showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Select Gender'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: gender.map((String value) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context, value);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: Text(value),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
                         );
-                      }).toList(),
-                      onChanged: (_) {},
+                      },
+                    );
+
+                    if (selectedGender != null) {
+                      setState(() {
+                        _genderController.text = selectedGender;
+                      });
+                    }
+                  },
+                  child: AbsorbPointer(
+                    child: TextField(
+                      controller: _genderController,
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        hintText: 'Gender',
+                        suffixIcon: Icon(Icons.arrow_drop_down),
+                      ),
                     ),
                   ),
                 ),
+
                 myTextField(
-                    "enter your age", TextInputType.number, _ageController),
+                    "Enter your age", TextInputType.number, _ageController),
 
                 SizedBox(
                   height: 50.h,
