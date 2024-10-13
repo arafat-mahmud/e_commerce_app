@@ -9,7 +9,6 @@ import 'package:e_commerce_app/widgets/myTextField.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
-
 class UserForm extends StatefulWidget {
   //const UserForm({super.key});
 
@@ -42,6 +41,12 @@ class _UserFormState extends State<UserForm> {
   sendUserDataToDB() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     var currentUser = _auth.currentUser;
+    
+    // October 13
+    // if (currentUser == null) {
+    //   print("User is not Authenticated.");
+    //   return;
+    // }
 
     CollectionReference _collectionRef =
         FirebaseFirestore.instance.collection("users-form-data");
@@ -98,8 +103,8 @@ class _UserFormState extends State<UserForm> {
                   decoration: InputDecoration(
                       // labelText: 'Phone Number',
                       hintText: 'Enter your phone number',
-                      contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 0)),
-                      
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 12, horizontal: 0)),
                   initialCountryCode: 'US',
                   onChanged: (phone) {
                     print(phone.completeNumber);
@@ -119,31 +124,6 @@ class _UserFormState extends State<UserForm> {
                     ),
                   ),
                 ),
-                // TextField(
-                //   controller: _genderController,
-                //   readOnly: true,
-                //   decoration: InputDecoration(
-                //     hintText: "Gender",
-                //     suffixIcon: DropdownButton<String>(
-                //       icon: Icon(Icons.arrow_drop_down),
-                //       underline: SizedBox(),
-                //       items: gender.map<DropdownMenuItem<String>>((String value) {
-                //         return DropdownMenuItem<String>(
-                //           value: value,
-                //           child: Text(value),
-                //           onTap: () {
-                //             setState(() {
-                //               _genderController.text = value;
-                //             });
-                //           },
-                //         );
-                //       }).toList(),
-                //       onChanged: (String? newValue) {
-                //         _genderController.text = newValue!;
-                //       },
-                //     ),
-                //   ),
-                // ),
                 GestureDetector(
                   onTap: () async {
                     String? selectedGender = await showDialog<String>(
